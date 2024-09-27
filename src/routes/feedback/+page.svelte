@@ -1,4 +1,5 @@
 <script lang="ts">
+	import FeedbackForm from '$lib/components/FeedbackForm.svelte';
 	import FeedbackList from '$lib/components/FeedbackList.svelte';
 	import FeedbackStats from '$lib/components/FeedbackStats.svelte';
 	import type { Feedback } from '$lib/feedback';
@@ -27,13 +28,20 @@
 	];
 
 	$: count = feedback.length;
-	$: average = parseFloat((feedback.reduce((a, { rating }) => a + rating, 0) / feedback.length).toFixed(2));
-    $: total = feedback.reduce((a, { rating }) => a + rating, 0);
+	$: average = parseFloat(
+		(feedback.reduce((a, { rating }) => a + rating, 0) / feedback.length).toFixed(2)
+	);
+	$: total = feedback.reduce((a, { rating }) => a + rating, 0);
 
 	const deleteFeedback = (e: CustomEvent<any>) => {
 		const id = e.detail;
 		console.log('delete feedback', id);
 		feedback = feedback.filter((item) => item.id !== id);
+	};
+
+	const addFeedback = (e: CustomEvent<Feedback>) => {
+		const newFeedback = e.detail;
+		feedback = [newFeedback, ...feedback];
 	};
 </script>
 
@@ -41,7 +49,9 @@
 	<title>Feedback List</title>
 </svelte:head>
 
+<FeedbackForm on:add-feedback={addFeedback} />
+
 <div class="container py-0 px-5">
-    <FeedbackStats {count} {average} {total}/>
+	<FeedbackStats {count} {average} {total} />
 	<FeedbackList {feedback} on:delete-feedback={deleteFeedback} />
 </div>
