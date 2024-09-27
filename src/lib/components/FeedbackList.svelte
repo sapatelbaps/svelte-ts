@@ -1,12 +1,15 @@
 <script lang="ts">
-	import type { Feedback } from "$lib/feedback";
-    import FeedbackItem from "./FeedbackItem.svelte";
-    export let feedback: Feedback[] = []
+	import { fade, scale } from 'svelte/transition';
+	import FeedbackItem from './FeedbackItem.svelte';
+	import { FeedbackStore } from '$lib/stores/stores';
 
-</script>   
+	$: count = $FeedbackStore.length;
+</script>
 
 Feedback List
 
-{#each feedback as fb (fb.id)}
-    <FeedbackItem item={fb} on:delete-feedback/>
+{#each $FeedbackStore as fb (fb.id)}
+	<div in:scale out:fade={{ duration: 500 }}>
+		<FeedbackItem item={fb} />
+	</div>
 {/each}
