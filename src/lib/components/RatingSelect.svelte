@@ -147,6 +147,7 @@
 		font-size: 19px;
 		border: 1px #eee solid;
 		transition: 0.3s;
+		list-style-type: none;
 	}
 
 	.rating li label {
