@@ -27,7 +27,16 @@
 			</li>
 			<li aria-current={$page.url.pathname === '/feedback' ? 'page' : undefined}>
 				<a href="/feedback">Opportunity Feedback</a>
-			</li>			
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/vc-order') ? 'page' : undefined}>
+				<a href="/vc-order">Order</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/vc-offer') ? 'page' : undefined}>
+				<a href="/vc-offer">Offers</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/vc-shipping') ? 'page' : undefined}>
+				<a href="/vc-shipping">Shipping Activity</a>
+			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
