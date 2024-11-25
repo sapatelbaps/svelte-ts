@@ -1,4 +1,8 @@
-import type { GetShippingActivityXMLResponse, ShippingActivity } from '$lib/types/shipping';
+import type {
+	GetShippingActivityXMLRequest,
+	GetShippingActivityXMLResponse,
+	ShippingActivity
+} from '$lib/types/shipping';
 import { EmptyXMLNode } from '$lib/types/vc-xml';
 import type { RequestHandler } from '@sveltejs/kit';
 import { XMLBuilder, XMLParser } from 'fast-xml-parser';
@@ -16,7 +20,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			return new Response('API credentials are required', { status: 400 });
 		}
 
-		const shippingActivityRequest = {
+		const shippingActivityRequest: GetShippingActivityXMLRequest = {
 			'?xml': EmptyXMLNode,
 			'soap12:Envelope': {
 				'@_xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',

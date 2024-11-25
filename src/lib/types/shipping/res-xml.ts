@@ -1,17 +1,16 @@
-import type { EmptyXMLNode } from '../vc-xml';
-import type { DebugHeader } from './req-xml';
+import type { EmptyXMLNode, SoapResponseEnvelopeHeader } from '../vc-xml';
 
 export type GetShippingActivityXMLResponse = {
 	'?xml': typeof EmptyXMLNode;
-	'soap:Envelope': SoapEnvelope;
+	'soap:Envelope': SoapResponseEnvelope;
 };
 
-export type SoapEnvelope = {
-	'soap:Header': SoapHeader;
-	'soap:Body': SoapBody;
+export type SoapResponseEnvelope = {
+	'soap:Header': SoapResponseEnvelopeHeader;
+	'soap:Body': SoapShippingActivityResponseBody;
 };
 
-export type SoapBody = {
+export type SoapShippingActivityResponseBody = {
 	GetShippingActivityResponse: GetShippingActivityResponse;
 };
 
@@ -36,8 +35,4 @@ export type ShippingActivity = {
 	ActualFreight: number;
 	MarkedUpFreight: number;
 	ShippingOrderType: string;
-};
-
-export type SoapHeader = {
-	DebugHeader?: DebugHeader;
 };
