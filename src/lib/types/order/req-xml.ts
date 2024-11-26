@@ -25,16 +25,17 @@ export type Order = {
 	Classification: Classification;
 	Shipping: Shipping;
 	Money: Money;
-	Payment: Payment;
-	OrderVariables: OrderVariables;
+	Payment?: Payment;
+	OrderVariables?: OrderVariables;
 	OrderedBy: BillTo;
 	ShipTo: ShipTo;
 	BillTo: BillTo;
 	Offers: Offers;
-	OrderRecurrenceSchedule: OrderRecurrenceSchedule;
-	OrderBudget: OrderBudget;
+	OrderRecurrenceSchedule?: OrderRecurrenceSchedule;
+	OrderBudget?: OrderBudget;
 };
 
+// Verify the schema and .net code usage in uStoreVeraCoreOrdersender
 export type BillTo = {
 	Flag?: string;
 	FullName: string;
@@ -46,20 +47,20 @@ export type BillTo = {
 };
 
 export type Ordoby = {
-	SeqID: string;
+	SeqID: number;
 	CustomerID: string;
 };
 
 export type Classification = {
 	CampaignID: string;
-	ResponseMedia: ResponseMedia;
-	Source: ResponseMedia;
-	Issue: Issue;
+	ResponseMedia: DescriptionNode;
+	Source?: DescriptionNode;
+	Issue?: Issue;
 	CustomerProject: CustomerProject;
 	CustomerCode: string;
 	Store: string;
-	Department: string;
-	DistributionCenter: string;
+	Department?: string;
+	DistributionCenter?: string;
 	Vendor: string;
 };
 
@@ -71,7 +72,7 @@ export type Issue = {
 	Issue: string;
 };
 
-export type ResponseMedia = {
+export type DescriptionNode = {
 	Description: string;
 };
 
@@ -82,33 +83,33 @@ export type Header = {
 	ReferenceNumber: string;
 	PONumber: string;
 	Comments: string;
-	IpAddress: string;
+	IpAddress?: string;
 	ApprovalComment: string;
-	InsertDate: string;
-	UTCEntryDateTime: string;
+	InsertDate?: string;
+	UTCEntryDateTime?: string;
 };
 
 export type OrderEntryView = {
-	SeqID: string;
+	SeqID: number;
 	Description: string;
 };
 
 export type Money = {
-	PriceClass: OrderEntryView;
-	ShippingHandlingCharge: string;
-	RushHandlingCharge: string;
-	NoChargeType: ResponseMedia;
-	DiscountAmount: string;
-	DiscountPercent: string;
-	DiscountCode: DiscountCode;
-	Coupon: Coupon;
-	SpecialHandlingCharge: string;
-	CreditAmount: string;
-	GiftCertificate: GiftCertificate;
-	GiftCertificateAmount: string;
-	TaxPercent: string;
-	NoChargeAmount: string;
-	TaxAmount: string;
+	PriceClass?: OrderEntryView;
+	ShippingHandlingCharge?: number;
+	RushHandlingCharge?: number;
+	NoChargeType?: DescriptionNode;
+	DiscountAmount?: number;
+	DiscountPercent?: number;
+	DiscountCode?: DiscountCode;
+	Coupon?: Coupon;
+	SpecialHandlingCharge?: number;
+	CreditAmount?: number;
+	GiftCertificate?: GiftCertificate;
+	GiftCertificateAmount?: number;
+	TaxPercent?: number;
+	NoChargeAmount?: number;
+	TaxAmount?: number;
 };
 
 export type Coupon = {
@@ -122,7 +123,7 @@ export type DiscountCode = {
 
 export type GiftCertificate = {
 	UID: string;
-	Amount: string;
+	Amount: number;
 };
 
 export type Offers = {
@@ -130,52 +131,59 @@ export type Offers = {
 };
 
 export type OfferOrdered = {
-	Offer: string;
-	Quantity: string;
-	CanceledQuantity: string;
-	OrderShipTo: string;
-	OrderShipToKey: string;
-	PriceType: string;
-	UnitPrice: string;
-	ShipType: string;
-	ShippingHandling: string;
-	Discounts: string;
-	DiscountPercent: string;
-	DocumentID: string;
-	SeqID: string;
-	CloneLine: string;
-	Unapproved: string;
-	ShipToKey: string;
-	FgnOrder: string;
-	Comments: string;
-	RCOrderKey: string;
-	Recurring: string;
-	LineNumber: string;
-	ProofLink: string;
-	Variables: string;
-	ProductDetails: string;
-	LineTaxPercent: string;
-	ShippingHandlingTaxPercent: string;
-	LineTaxAmount: string;
+	// Might require a child node
+	Offer?: string;
+	Quantity: number;
+	CanceledQuantity?: number;
+	// Might require a child node
+	OrderShipTo?: string;
+	// Might require a child node
+	OrderShipToKey?: string;
+	// Restrict the value for unsignedByte as per XML schema
+	PriceType: number;
+	UnitPrice: number;
+	ShipType: number;
+	ShippingHandling: number;
+	Discounts?: number;
+	DiscountPercent?: string;
+	DocumentID?: string;
+	SeqID: number;
+	CloneLine?: number;
+	Unapproved?: boolean;
+	ShipToKey?: string;
+	FgnOrder?: string;
+	Comments?: string;
+	RCOrderKey?: string;
+	Recurring?: boolean;
+	LineNumber: number;
+	ProofLink?: string;
+	// Might require a child node
+	Variables?: string;
+	// Might require a child node
+	ProductDetails?: string;
+	LineTaxPercent?: number;
+	ShippingHandlingTaxPercent?: string;
+	LineTaxAmount?: number;
 };
 
 export type OrderBudget = {
 	Person: Person;
 };
 
+// All properties might be a node having child nodes
 export type Person = {
 	Name: string;
-	CompanyInfo: string;
-	Address: string;
-	ContactInfo: string;
-	BillingInfo: string;
-	Variables: string;
+	CompanyInfo?: string;
+	Address?: string;
+	ContactInfo?: string;
+	BillingInfo?: string;
+	Variables?: string;
 };
 
 export type OrderRecurrenceSchedule = {
 	RecurrenceSchedules: RecurrenceSchedules;
 	RecurrenceOfferFlag: string;
-	RecurrenceShippingOption: ResponseMedia;
+	RecurrenceShippingOption: DescriptionNode;
 	RecurrenceSpecialHandlingCharge: string;
 	NumberRecurrence: string;
 };
@@ -210,15 +218,16 @@ export type OrderVariables = {
 };
 
 export type OrderVariable = {
-	SeqID: string;
-	VariableField: string;
+	SeqID: number;
+	// Might require a child node
+	VariableField?: string;
 	Value: string;
 	ValueDescription: string;
 };
 
 export type Payment = {
 	PaymentType: PaymentType;
-	PaymentAmount: string;
+	PaymentAmount: number;
 	CCNumber: string;
 	CCExpirationDate: string;
 	CSC: string;
@@ -226,13 +235,13 @@ export type Payment = {
 	Token: string;
 	TransactionID: string;
 	AuthorizationCode: string;
-	AuthorizationAmount: string;
+	AuthorizationAmount: number;
 	AuthorizationDate: string;
 };
 
 export type PaymentType = {
 	Description: string;
-	Sequence: string;
+	Sequence: number;
 };
 
 export type ShipTo = {
@@ -240,62 +249,64 @@ export type ShipTo = {
 };
 
 export type OrderShipTo = {
-	SeqID: string;
+	SeqID: number;
 	Flag: string;
 	Key: string;
-	NeededBy: string;
+	NeededBy?: string;
 	ReleaseDate: string;
-	Rush: string;
-	RushHandling: string;
-	Comments: string;
-	FreightCarrier: string;
-	FreightService: string;
-	ThirdPartyType: string;
-	ThirdPartyAccountNumber: string;
-	FreightCode: string;
-	FreightCodeDescription: string;
-	SpecialHandling: string;
-	SpecialHandlingCharge: string;
-	ShippingHandlingCharge: string;
-	FullName: string;
-	FullNameWithSuffix: string;
+	Rush: boolean;
+	RushHandling?: number;
+	Comments?: string;
+	FreightCarrier?: FreightCarrier;
+	FreightService?: DescriptionNode;
+	ThirdPartyType?: number;
+	ThirdPartyAccountNumber?: string;
+	FreightCode?: string;
+	FreightCodeDescription?: string;
+	// Might require a child node
+	SpecialHandling?: string;
+	SpecialHandlingCharge?: number;
+	ShippingHandlingCharge?: number;
+	FullName?: string;
+	FullNameWithSuffix?: string;
 	CityStateZip: string;
 	CityStateZipCountry: string;
-	CompoundAddress: string;
-	PickPacks: string;
-	ShippingHandlingTaxAmount: string;
-	ShippingHandlingTaxPercent: string;
+	CompoundAddress?: string;
+	// Might require a child node
+	PickPacks?: string;
+	ShippingHandlingTaxAmount?: number;
+	ShippingHandlingTaxPercent?: number;
 };
 
 export type Shipping = {
-	FreightCarrier: FreightCarrier;
-	FreightService: ResponseMedia;
-	FreightAccount: FreightAccount;
-	ShippingOption: ResponseMedia;
+	FreightCarrier?: FreightCarrier;
+	FreightService?: DescriptionNode;
+	FreightAccount?: FreightAccount;
+	ShippingOption?: DescriptionNode;
 	FreightCode: string;
-	FreightCodeDescription: string;
-	ShipComments: string;
-	NeededBy: string;
-	Rush: string;
-	ReleaseDate: string;
-	ThirdPartyType: string;
-	ThirdAccountNumber: string;
-	NCShip: string;
-	NCPack: string;
-	NCOffers: string;
-	NCHandling: string;
-	NCOffShipHandling: string;
-	NCSpecialHandling: string;
-	NCRush: string;
+	FreightCodeDescription?: string;
+	ShipComments?: string;
+	NeededBy?: string;
+	Rush?: boolean;
+	ReleaseDate?: string;
+	ThirdPartyType?: number;
+	ThirdAccountNumber?: string;
+	NCShip?: boolean;
+	NCPack?: boolean;
+	NCOffers?: boolean;
+	NCHandling?: boolean;
+	NCOffShipHandling?: boolean;
+	NCSpecialHandling?: boolean;
+	NCRush?: boolean;
 };
 
 export type FreightAccount = {
-	SeqID: string;
-	Description: string;
-	FreightCarrier: string;
-	Person: string;
-	ThirdAcctNo: string;
-	NonResident: string;
+	SeqID: number;
+	Description?: string;
+	FreightCarrier?: FreightCarrier;
+	Person?: Person;
+	ThirdAcctNo?: string;
+	NonResident?: boolean;
 };
 
 export type FreightCarrier = {
