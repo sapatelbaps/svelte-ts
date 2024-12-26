@@ -19,7 +19,7 @@ export type AddOrderResponse = {
 };
 
 export type AddOrderResult = {
-	OrderSeqID: string;
+	OrderSeqID: number;
 	OrderID: string;
 };
 

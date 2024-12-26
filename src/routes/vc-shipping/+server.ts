@@ -1,7 +1,6 @@
 import type {
 	GetShippingActivityXMLRequest,
-	GetShippingActivityXMLResponse,
-	ShippingActivity
+	GetShippingActivityXMLResponse
 } from '$lib/types/shipping';
 import { EmptyXMLNode } from '$lib/types/vc-xml';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -49,6 +48,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		let responseXML = await getVeracoreShipments(reqXmlContent);
 		const parser = new XMLParser();
+		console.log(responseXML);
 
 		let shipments = parser.parse(responseXML) as GetShippingActivityXMLResponse;
 		const shipmentsData =

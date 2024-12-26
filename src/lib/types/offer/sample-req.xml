@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Header>
+        <AuthenticationHeader xmlns="http://omscom/">
+            <Username>HEM.HM1TEST.API</Username>
+            <Password>secure</Password>
+        </AuthenticationHeader>
+        <DebugHeader xmlns="http://omscom/">
+            <Debug>true</Debug>
+        </DebugHeader>
+    </soap:Header>
+    <soap:Body>
+        <GetOffers xmlns="http://omscom/">
+            <sortGroups/>
+            <categoryGroupDescription/>
+            <customCategories/>
+            <mailerUID/>
+            <searchString>%</searchString>
+            <searchID>true</searchID>
+            <searchDescription>true</searchDescription>
+            <priceClassDescription/>
+        </GetOffers>
+    </soap:Body>
+</soap:Envelope>

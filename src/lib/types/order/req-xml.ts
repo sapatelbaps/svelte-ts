@@ -23,7 +23,7 @@ export type AddOrder = {
 export type Order = {
 	Header: Header;
 	Classification: Classification;
-	Shipping: Shipping;
+	Shipping?: Shipping;
 	Money: Money;
 	Payment?: Payment;
 	OrderVariables?: OrderVariables;
@@ -39,9 +39,22 @@ export type Order = {
 export type BillTo = {
 	Flag?: string;
 	FullName: string;
-	FullNameWithSuffix: string;
-	CityStateZip: string;
-	CityStateZipCountry: string;
+	Email?: string;
+	TaxExempt?: boolean;
+	TaxExemptApproved?: boolean;
+	CommercialName?: boolean;
+	Phone?: string;
+	CompanyName?: string;
+	Address1?: string;
+	Address2?: string;
+	City?: string;
+	State?: string;
+	PostalCode?: string;
+	Country?: string;
+	UID?: string;
+	FullNameWithSuffix?: string;
+	CityStateZip?: string;
+	CityStateZipCountry?: string;
 	CompoundAddress: string;
 	ORDOBY?: Ordoby;
 };
@@ -52,12 +65,12 @@ export type Ordoby = {
 };
 
 export type Classification = {
-	CampaignID: string;
-	ResponseMedia: DescriptionNode;
+	CampaignID?: string;
+	ResponseMedia?: DescriptionNode;
 	Source?: DescriptionNode;
 	Issue?: Issue;
-	CustomerProject: CustomerProject;
-	CustomerCode: string;
+	CustomerProject?: CustomerProject;
+	CustomerCode?: string;
 	Store: string;
 	Department?: string;
 	DistributionCenter?: string;
@@ -79,13 +92,13 @@ export type DescriptionNode = {
 export type Header = {
 	ID: string;
 	EntryDate: string;
-	OrderEntryView: OrderEntryView;
+	OrderEntryView?: OrderEntryView;
 	ReferenceNumber: string;
 	PONumber: string;
-	Comments: string;
+	Comments?: string;
 	IpAddress?: string;
-	ApprovalComment: string;
-	InsertDate?: string;
+	ApprovalComment?: string;
+	InsertDate: string;
 	UTCEntryDateTime?: string;
 };
 
@@ -130,19 +143,30 @@ export type Offers = {
 	OfferOrdered: OfferOrdered[];
 };
 
+export type OfferID = {
+	Header: OfferIDHeader;
+};
+
+export type OfferIDHeader = {
+	SeqID?: number;
+	ID: string;
+};
+
 export type OfferOrdered = {
 	// Might require a child node
-	Offer?: string;
+	Offer: OfferID;
 	Quantity: number;
 	CanceledQuantity?: number;
 	// Might require a child node
 	OrderShipTo?: string;
 	// Might require a child node
-	OrderShipToKey?: string;
+	OrderShipToKey: {
+		Key: '0';
+	};
 	// Restrict the value for unsignedByte as per XML schema
 	PriceType: number;
 	UnitPrice: number;
-	ShipType: number;
+	ShipType?: number;
 	ShippingHandling: number;
 	Discounts?: number;
 	DiscountPercent?: string;
@@ -160,10 +184,15 @@ export type OfferOrdered = {
 	// Might require a child node
 	Variables?: string;
 	// Might require a child node
-	ProductDetails?: string;
+	ProductDetails?: ProductInfo[];
 	LineTaxPercent?: number;
 	ShippingHandlingTaxPercent?: string;
 	LineTaxAmount?: number;
+};
+
+export type ProductInfo = {
+	ClusterNumber: string;
+	PartNumber: string;
 };
 
 export type OrderBudget = {
@@ -249,14 +278,15 @@ export type ShipTo = {
 };
 
 export type OrderShipTo = {
-	SeqID: number;
-	Flag: string;
+	SeqID?: number;
+	Flag?: string;
 	Key: string;
 	NeededBy?: string;
-	ReleaseDate: string;
+	ReleaseDate?: string;
 	Rush: boolean;
 	RushHandling?: number;
 	Comments?: string;
+	CompanyName?: string;
 	FreightCarrier?: FreightCarrier;
 	FreightService?: DescriptionNode;
 	ThirdPartyType?: number;
@@ -264,13 +294,21 @@ export type OrderShipTo = {
 	FreightCode?: string;
 	FreightCodeDescription?: string;
 	// Might require a child node
-	SpecialHandling?: string;
+	SpecialHandling?: DescriptionNode;
 	SpecialHandlingCharge?: number;
 	ShippingHandlingCharge?: number;
 	FullName?: string;
 	FullNameWithSuffix?: string;
-	CityStateZip: string;
-	CityStateZipCountry: string;
+	Address1?: string;
+	Address2?: string;
+	City?: string;
+	State?: string;
+	PostalCode?: string;
+	Country?: string;
+	Phone?: string;
+	Fax?: string;
+	CityStateZip?: string;
+	CityStateZipCountry?: string;
 	CompoundAddress?: string;
 	// Might require a child node
 	PickPacks?: string;
